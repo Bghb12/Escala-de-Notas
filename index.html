@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Escala de Notas Pro</title>
     
-    <!-- Código de Google AdSense -->
+    <!-- Código de Google AdSense (Oculto para verificación) -->
     <meta name="google-adsense-account" content="ca-pub-1422523085246086">
 
     <!-- Librerías Externas -->
@@ -63,15 +63,6 @@
                 </div>
             </div>
         </header>
-
-        <!-- ESPACIO PUBLICITARIO 1: Banner Superior -->
-        <div class="w-full mb-6 no-print text-center">
-            <div class="bg-slate-200/50 border border-slate-300 border-dashed rounded-xl min-h-[100px] w-full flex flex-col items-center justify-center text-slate-400 relative overflow-hidden group">
-                <span class="text-[10px] uppercase tracking-wider absolute top-2 left-3 font-bold opacity-50 z-0">Publicidad</span>
-                <span class="text-xs font-medium z-0 px-4">Espacio para Anuncio Horizontal (Banner Superior)</span>
-                <!-- Cuando Google te apruebe, pegarás el código del anuncio aquí -->
-            </div>
-        </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <!-- PANEL LATERAL (Configuración) -->
@@ -160,7 +151,7 @@
                     <div class="p-4 sm:p-6 border-b border-slate-100 flex flex-col lg:flex-row lg:justify-between lg:items-center bg-slate-50/50 gap-4">
                         <div class="flex items-center gap-2 w-full lg:w-1/2">
                             <input type="text" id="saveName" placeholder="Nombra esta evaluación..." class="text-xl sm:text-2xl font-bold text-slate-800 bg-transparent border-b-2 border-transparent hover:border-slate-200 focus:border-blue-500 focus:outline-none transition-colors px-1 py-1 w-full placeholder:text-slate-300 truncate">
-                            <button onclick="window.triggerSave()" class="text-emerald-600 hover:bg-emerald-100 bg-emerald-50 p-2.5 rounded-xl transition-colors flex-shrink-0 border border-emerald-200" title="Guardar">
+                            <button onclick="window.triggerSave()" class="text-emerald-600 hover:bg-emerald-100 bg-emerald-50 p-2.5 rounded-xl transition-colors flex-shrink-0 border border-emerald-200" title="Guardar en la nube">
                                 <i data-lucide="cloud-upload" class="w-5 h-5"></i>
                             </button>
                         </div>
@@ -189,16 +180,6 @@
                 </div>
             </main>
         </div>
-
-        <!-- ESPACIO PUBLICITARIO 2: Banner Inferior -->
-        <div class="w-full mt-8 no-print text-center">
-            <div class="bg-slate-200/50 border border-slate-300 border-dashed rounded-xl min-h-[100px] w-full flex flex-col items-center justify-center text-slate-400 relative overflow-hidden group">
-                <span class="text-[10px] uppercase tracking-wider absolute top-2 left-3 font-bold opacity-50 z-0">Publicidad</span>
-                <span class="text-xs font-medium z-0 px-4">Espacio para Anuncio Horizontal (Banner Inferior)</span>
-                <!-- Cuando Google te apruebe, pegarás el código del anuncio aquí -->
-            </div>
-        </div>
-
     </div>
 
     <!-- Toasts UI -->
@@ -389,10 +370,10 @@
          ========================================== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
         import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, deleteDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Tus llaves de Firebase (No modificar)
         const firebaseConfig = {
             apiKey: "AIzaSyD7YzBE3MLZgUFCr4r_BSatfFAZKV_LJz4",
             authDomain: "escala-de-notas-3acdd.firebaseapp.com",
@@ -405,6 +386,7 @@
 
         try {
             const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
             const auth = getAuth(app); 
             const db = getFirestore(app);
 
@@ -454,7 +436,7 @@
 
             window.triggerGoogleLogin = async () => {
                 try { await signInWithPopup(auth, new GoogleAuthProvider()); window.showToast("Conectado a la Nube", "check", "emerald"); } 
-                catch(e) { window.showToast("Debes subir la página a internet para iniciar sesión.", "alert-triangle", "red"); }
+                catch(e) { window.showToast("No se pudo iniciar sesión. Asegúrate de autorizar tu dominio en Firebase.", "alert-triangle", "red"); }
             };
 
             window.triggerLogout = async () => { await signOut(auth); await signInAnonymously(auth); window.showToast("Sesión cerrada", "info", "blue"); };
