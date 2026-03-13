@@ -1,18 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Google tag (gtag.js) - Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WHM3BWFTQZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-WHM3BWFTQZ');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Escala de Notas Pro para Docentes</title>
     
-    <!-- Meta tags vitales para SEO -->
-    <meta name="description" content="Genera, guarda en la nube y exporta escalas de notas personalizadas para profesores en segundos. PDF, CSV y curvas de evaluación Mineduc.">
-    <meta name="keywords" content="escala de notas, calculadora profesor, mineduc, evaluación docente, notas chile, exportar pdf notas">
+    <!-- ==========================================
+         SEO Y METADATOS AVANZADOS
+         ========================================== -->
+    <title>Calculadora de Escala de Notas MINEDUC | Exigencia 60%</title>
+    <meta name="description" content="Calculadora de escala de notas gratuita para docentes en Chile. Transforma puntajes a notas al instante con exigencia del 60% o 50% (MINEDUC). Descarga PDF y Excel.">
+    <meta name="keywords" content="escala de notas, calculadora profesor, mineduc, evaluación docente, notas chile, transformar puntaje a nota, exigencia 60, escala calificaciones, calcular nota de aprobación">
     <meta name="author" content="Escala de Notas Pro">
+    <meta name="robots" content="index, follow">
     
+    <!-- URL Canónica -->
+    <link rel="canonical" href="https://mis-escalas-notas.com/" id="canonicalUrl">
+    
+    <!-- Open Graph para Redes Sociales -->
+    <meta property="og:title" content="Calculadora de Escala de Notas Pro para Docentes">
+    <meta property="og:description" content="Genera, guarda y exporta escalas de evaluación precisas al instante. Herramienta 100% gratuita.">
+    <meta property="og:type" content="website">
+
+    <!-- Verificación de Google Search Console -->
+    <meta name="google-site-verification" content="ueRdU1d0RSRXFwXtcKkBIdAtDJKZl3fNiBlNwVP3t48" />
+
     <!-- Código Oficial de Google AdSense -->
     <meta name="google-adsense-account" content="ca-pub-1422523085246086">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1422523085246086" crossorigin="anonymous"></script>
+
+    <!-- Schema.org: Aplicación y Preguntas Frecuentes (FAQ) -->
+    <script type="application/ld+json">
+    [
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Calculadora de Escala de Notas Pro",
+          "description": "Aplicación web gratuita para que profesores y docentes calculen escalas de calificaciones basadas en puntajes y niveles de exigencia (MINEDUC).",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CLP" }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [{
+            "@type": "Question",
+            "name": "¿Con qué porcentaje de exigencia se aprueba en Chile?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Según las normativas tradicionales del MINEDUC en Chile, la nota mínima de aprobación es un 4.0, la cual se alcanza generalmente con un 60% de exigencia sobre el puntaje total de la evaluación."
+            }
+          }, {
+            "@type": "Question",
+            "name": "¿Cómo calcular la escala de notas a 60%?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Para calcularla manualmente debes aplicar una fórmula lineal de dos tramos. Sin embargo, lo más rápido y libre de errores es utilizar una calculadora de escala de notas automática donde ingresas el puntaje máximo y seleccionas el 60% de exigencia."
+            }
+          }]
+        }
+    ]
+    </script>
 
     <!-- Librerías Externas -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -70,6 +128,9 @@
             </div>
         </header>
 
+        <!-- ESPACIO PUBLICITARIO 1 -->
+        <div class="w-full mb-6 no-print text-center min-h-[90px]" id="ad-container-top"></div>
+
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <!-- PANEL LATERAL (Configuración) -->
             <aside class="lg:col-span-1 space-y-6 no-print">
@@ -78,7 +139,6 @@
                         <h2 class="text-lg font-bold flex items-center gap-2 text-slate-800">
                             <i data-lucide="settings" class="w-5 h-5 text-blue-600"></i> Parámetros
                         </h2>
-                        <!-- Botón para limpiar calculadora -->
                         <button onclick="window.resetCalculator()" class="text-slate-400 hover:text-blue-600 transition-colors" title="Restaurar valores">
                             <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                         </button>
@@ -86,29 +146,29 @@
 
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Puntaje Máximo</label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1" for="maxPoints">Puntaje Máximo</label>
                             <input type="text" inputmode="decimal" id="maxPoints" value="40" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Exigencia (%)</label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1" for="exigency">Exigencia (%)</label>
                             <input type="text" inputmode="decimal" id="exigency" value="60" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-1">Nota Mín</label>
+                                <label class="block text-sm font-medium text-slate-700 mb-1" for="minGrade">Nota Mínima</label>
                                 <input type="text" inputmode="decimal" id="minGrade" value="1.0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-1">Nota Máx</label>
+                                <label class="block text-sm font-medium text-slate-700 mb-1" for="maxGrade">Nota Máxima</label>
                                 <input type="text" inputmode="decimal" id="maxGrade" value="7.0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Nota de Aprobación</label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1" for="passGrade">Nota Aprobación</label>
                             <input type="text" inputmode="decimal" id="passGrade" value="4.0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
                         </div>
                         <div class="pt-2 border-t border-slate-100">
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Curva Matemática</label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1" for="curve">Curva de Evaluación</label>
                             <select id="curve" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 text-sm hover:bg-white transition-colors cursor-pointer">
                                 <option value="linear2">Lineal 2 Tramos (MINEDUC)</option>
                                 <option value="linear1">Lineal 1 Tramo</option>
@@ -116,7 +176,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Incremento de puntos</label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1" for="increment">Incremento de puntos</label>
                             <select id="increment" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 text-sm hover:bg-white transition-colors cursor-pointer">
                                 <option value="1">Cada 1.0 puntos</option>
                                 <option value="0.5">Cada 0.5 puntos</option>
@@ -144,17 +204,17 @@
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-6 flex flex-col md:flex-row gap-4 items-center justify-between no-print hover:shadow-md transition-shadow">
                     <div class="flex items-center gap-2 text-blue-800 bg-blue-50 px-4 py-2 rounded-xl border border-blue-100 w-full md:w-auto">
                         <i data-lucide="info" class="w-5 h-5 flex-shrink-0"></i>
-                        <span id="summaryText" class="text-sm font-medium">Calculando...</span>
+                        <span id="summaryText" class="text-sm font-medium">Calculando escala...</span>
                     </div>
                     
                     <div class="flex flex-wrap gap-2 w-full md:w-auto">
-                        <button onclick="window.copyLink()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-sm font-medium focus:ring-2 focus:ring-slate-200 transition-colors shadow-sm">
+                        <button onclick="window.copyLink()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-sm font-medium focus:ring-2 focus:ring-slate-200 transition-colors shadow-sm" aria-label="Copiar enlace de esta escala">
                             <i data-lucide="link" class="w-4 h-4"></i> Link
                         </button>
-                        <button onclick="window.exportCSV()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-emerald-500 transition-colors">
-                            <i data-lucide="file-spreadsheet" class="w-4 h-4"></i> CSV
+                        <button onclick="window.exportCSV()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-emerald-500 transition-colors" aria-label="Exportar a Excel CSV">
+                            <i data-lucide="file-spreadsheet" class="w-4 h-4"></i> Excel
                         </button>
-                        <button id="btnPdf" onclick="window.exportPDF()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-blue-500 transition-colors disabled:opacity-70">
+                        <button id="btnPdf" onclick="window.exportPDF()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-blue-500 transition-colors disabled:opacity-70" aria-label="Descargar escala en PDF">
                             <i data-lucide="file-down" class="w-4 h-4" id="pdfIcon"></i> <span id="pdfText">PDF</span>
                         </button>
                     </div>
@@ -163,7 +223,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">
                     <div class="p-4 sm:p-6 border-b border-slate-100 flex flex-col lg:flex-row lg:justify-between lg:items-center bg-slate-50/50 gap-4">
                         <div class="flex items-center gap-2 w-full lg:w-1/2">
-                            <input type="text" id="saveName" placeholder="Nombra esta evaluación..." class="text-xl sm:text-2xl font-bold text-slate-800 bg-transparent border-b-2 border-transparent hover:border-slate-200 focus:border-blue-500 focus:outline-none transition-colors px-1 py-1 w-full placeholder:text-slate-300 truncate">
+                            <input type="text" id="saveName" placeholder="Nombra esta evaluación..." class="text-xl sm:text-2xl font-bold text-slate-800 bg-transparent border-b-2 border-transparent hover:border-slate-200 focus:border-blue-500 focus:outline-none transition-colors px-1 py-1 w-full placeholder:text-slate-300 truncate" aria-label="Nombre de la escala">
                             <button onclick="window.triggerSave()" class="text-emerald-600 hover:bg-emerald-100 bg-emerald-50 p-2.5 rounded-xl transition-colors flex-shrink-0 border border-emerald-200 outline-none focus:ring-2 focus:ring-emerald-500" title="Guardar en la nube">
                                 <i data-lucide="cloud-upload" class="w-5 h-5"></i>
                             </button>
@@ -173,15 +233,15 @@
                             <div class="relative" id="viewModeContainer">
                                 <button onclick="document.getElementById('viewDropdown').classList.toggle('hidden')" class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-slate-200 outline-none transition-colors">
                                     <i data-lucide="eye" class="w-4 h-4 text-blue-600"></i>
-                                    <span id="viewText">Detallada</span>
+                                    <span id="viewText">Vista Detallada</span>
                                     <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
                                 </button>
                                 <div id="viewDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden z-20">
                                     <button onclick="window.changeView('detailed')" class="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 border-b border-slate-50 transition-colors">
-                                        <i data-lucide="layout-list" class="w-4 h-4 inline mr-2 text-slate-400"></i> Detallada
+                                        <i data-lucide="layout-list" class="w-4 h-4 inline mr-2 text-slate-400"></i> Tabla Detallada
                                     </button>
                                     <button onclick="window.changeView('compact')" class="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
-                                        <i data-lucide="grid-3x3" class="w-4 h-4 inline mr-2 text-slate-400"></i> Compacta
+                                        <i data-lucide="grid-3x3" class="w-4 h-4 inline mr-2 text-slate-400"></i> Tabla Compacta
                                     </button>
                                 </div>
                             </div>
@@ -195,43 +255,62 @@
         </div>
 
         <!-- ========================================================
-             SECCIÓN INFORMATIVA Y LEGAL (VITAL PARA APROBAR ADSENSE) 
+             TEXTO SEO AVANZADO (Fundamental para primer lugar en Google)
              ======================================================== -->
-        <div class="mt-12 bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 no-print text-slate-600">
-            <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                <i data-lucide="info" class="w-5 h-5 text-blue-600"></i>
-                Sobre Escala de Notas Pro
-            </h2>
-            <div class="space-y-4 text-sm leading-relaxed">
-                <p>
-                    La <strong>Calculadora de Escala de Notas Pro</strong> es una herramienta digital gratuita diseñada para optimizar el tiempo de los docentes chilenos e internacionales. Permite generar escalas de calificaciones precisas al instante, facilitando la conversión de puntajes a notas según las normativas vigentes (MINEDUC).
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <h3 class="font-bold text-slate-700 mb-2">📊 Precisión Total</h3>
-                        <p class="text-xs">Ajusta el puntaje máximo, la exigencia (ej. 60%) y los incrementos decimales. Soporta curvas de evaluación de 1 o 2 tramos y formato logarítmico.</p>
+        <article class="mt-12 bg-white p-6 sm:p-10 rounded-2xl shadow-sm border border-slate-200 no-print text-slate-700">
+            <header class="mb-6 border-b border-slate-100 pb-4">
+                <h2 class="text-2xl font-extrabold text-slate-900">Calculadora de Escala de Notas Docente (MINEDUC)</h2>
+                <p class="text-sm text-slate-500 mt-1">La herramienta digital gratuita para transformar puntajes a calificaciones en Chile, de forma rápida y sin errores.</p>
+            </header>
+            
+            <div class="space-y-6 text-sm leading-relaxed">
+                <section>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">¿Cómo calcular una escala de notas con 60% de exigencia?</h3>
+                    <p>En el sistema educativo de Chile, el Ministerio de Educación (MINEDUC) establece tradicionalmente que los estudiantes deben alcanzar un <strong>60% de rendimiento para obtener la nota mínima de aprobación (4.0)</strong> en sus evaluaciones. Generar esta escala manualmente puede llevar mucho tiempo y ser propenso a errores, especialmente si el examen tiene puntajes con decimales (por ejemplo, preguntas de 0.5 puntos).</p>
+                    <p class="mt-2">Nuestra <strong>Calculadora de Escala de Notas</strong> automatiza este proceso matemático aplicando una fórmula lineal de dos tramos. Solo debes ingresar el puntaje máximo de tu prueba, establecer la exigencia (que puedes modificar al 50% si tu reglamento interno lo permite) y el sistema generará al instante la tabla completa de conversiones.</p>
+                </section>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
+                        <h4 class="font-bold text-blue-700 mb-2 flex items-center gap-2"><i data-lucide="calculator" class="w-4 h-4"></i> Parámetros Flexibles</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-xs text-slate-600">
+                            <li><strong>Puntaje Máximo:</strong> Soporta evaluaciones extensas (hasta 20.000 datos procesados al instante).</li>
+                            <li><strong>Nivel de Exigencia:</strong> Configurable desde 1% hasta 99% (Estándar 60%).</li>
+                            <li><strong>Nota Mínima y Máxima:</strong> Escala chilena tradicional de 1.0 a 7.0, modificable a tus necesidades.</li>
+                            <li><strong>Incrementos de Puntaje:</strong> Ajustes precisos cada 1.0, 0.5, 0.25, 0.2 o 0.1 puntos.</li>
+                        </ul>
                     </div>
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <h3 class="font-bold text-slate-700 mb-2">☁️ Guardado en la Nube</h3>
-                        <p class="text-xs">Inicia sesión con tu cuenta de Google para guardar tus configuraciones favoritas de forma privada y acceder a ellas desde cualquier dispositivo.</p>
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <h3 class="font-bold text-slate-700 mb-2">📥 Exportación Fácil</h3>
-                        <p class="text-xs">Descarga tus escalas en formato PDF listo para imprimir o en archivo CSV (Excel) para integrarlo rápidamente en tu libro de clases digital.</p>
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
+                        <h4 class="font-bold text-emerald-700 mb-2 flex items-center gap-2"><i data-lucide="download-cloud" class="w-4 h-4"></i> Utilidades para el Aula</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-xs text-slate-600">
+                            <li><strong>Guardado Seguro:</strong> Inicia sesión con Google para almacenar tus escalas y no perderlas nunca.</li>
+                            <li><strong>Exportación a Excel (CSV):</strong> Traslada fácilmente las notas a planillas o libros de clases digitales.</li>
+                            <li><strong>Documentos en PDF:</strong> Descarga la tabla en un formato limpio y compacto, listo para imprimir y llevar a la sala de profesores.</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <footer class="mt-8 mb-4 text-center text-xs text-slate-400 no-print">
-            <div class="flex flex-wrap justify-center gap-4 mb-2">
-                <a href="#" class="hover:text-blue-600 transition-colors">Política de Privacidad</a>
-                <span>&bull;</span>
-                <a href="#" class="hover:text-blue-600 transition-colors">Términos de Servicio</a>
+                <section class="mt-6">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Ahorra tiempo en tus evaluaciones</h3>
+                    <p>Revisar pruebas y transformar el puntaje a nota no debería consumir tus horas de descanso. Escala de Notas Pro fue diseñada para funcionar a la velocidad de la luz en cualquier dispositivo: celular, tablet o computador. Puedes compartir la configuración exacta con tus colegas enviándoles un simple enlace, unificando los criterios de evaluación en tu departamento o establecimiento educativo.</p>
+                </section>
             </div>
-            <p>&copy; 2026 Escala de Notas Pro. Una herramienta de apoyo docente. Todos los derechos reservados.</p>
+        </article>
+
+        <!-- ESPACIO PUBLICITARIO 2 -->
+        <div class="w-full mt-6 no-print text-center min-h-[90px]" id="ad-container-bottom"></div>
+
+        <!-- FOOTER LEGAL REQUERIDO POR GOOGLE -->
+        <footer class="mt-8 mb-4 text-center text-xs text-slate-400 no-print border-t border-slate-200 pt-6">
+            <div class="flex flex-wrap justify-center gap-4 mb-3">
+                <a href="#" class="hover:text-blue-600 transition-colors font-medium">Política de Privacidad</a>
+                <span>&bull;</span>
+                <a href="#" class="hover:text-blue-600 transition-colors font-medium">Términos de Uso</a>
+                <span>&bull;</span>
+                <a href="#" class="hover:text-blue-600 transition-colors font-medium">Consentimiento de Cookies (GDPR)</a>
+            </div>
+            <p>&copy; 2026 Escala de Notas Pro - Herramienta gratuita de apoyo docente. Todos los derechos reservados.</p>
         </footer>
-        <!-- ======================================================== -->
 
     </div>
 
@@ -242,6 +321,9 @@
          SCRIPT 1: MOTOR VISUAL Y LÓGICO
          ========================================== -->
     <script>
+        // Actualiza URL canónica automáticamente
+        document.getElementById('canonicalUrl').href = window.location.origin + window.location.pathname;
+
         window.escalaState = { rows: [], viewMode: 'detailed', inputs: ['maxPoints', 'exigency', 'minGrade', 'maxGrade', 'passGrade', 'increment', 'curve'] };
 
         window.showToast = (msg, icon = "info", color = "blue") => {
@@ -269,13 +351,11 @@
             if(passG <= minG || passG >= maxG) { passG = ((maxG - minG)/2)+minG; document.getElementById('passGrade').value = passG; }
 
             const passPts = maxPts * (ex / 100);
-            document.getElementById('summaryText').innerHTML = `Aprobación en: <b>${passPts.toFixed(2)} pts</b>`;
+            document.getElementById('summaryText').innerHTML = `Nota <strong>${passG.toFixed(1)}</strong> se alcanza con: <strong>${passPts.toFixed(2)} pts</strong>`;
             document.getElementById('curveBadge').innerText = document.getElementById('curve').options[document.getElementById('curve').selectedIndex].text;
 
             let data = [];
-            
-            // LÍMITE AUMENTADO A 20,000 FILAS PARA ESCALAS GIGANTES
-            if ((maxPts / inc) > 20000) { window.showToast("Escala demasiado grande (Máx 20.000 filas). Aumenta el incremento.", "alert-circle", "red"); return; }
+            if ((maxPts / inc) > 20000) { window.showToast("Escala demasiado grande (Máx 20.000 datos). Aumenta el incremento.", "alert-circle", "red"); return; }
 
             for (let p = maxPts; p >= 0; p -= inc) {
                 p = Math.round(p * 100) / 100;
@@ -308,8 +388,8 @@
                     <table class="w-full text-left min-w-[300px]">
                         <thead class="bg-slate-50 border-b border-slate-200 sticky top-0 z-10 shadow-sm">
                             <tr><th class="px-6 py-4 text-sm font-semibold text-slate-600">Puntaje</th>
-                                <th class="px-6 py-4 text-sm font-semibold text-slate-600">Nota</th>
-                                <th class="px-6 py-4 text-sm font-semibold text-slate-600 hidden sm:table-cell">Logro</th></tr>
+                                <th class="px-6 py-4 text-sm font-semibold text-slate-600">Nota Final</th>
+                                <th class="px-6 py-4 text-sm font-semibold text-slate-600 hidden sm:table-cell">% de Logro</th></tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
                         ${data.map(r => `
@@ -336,7 +416,7 @@
         
         window.changeView = (mode) => {
             window.escalaState.viewMode = mode;
-            document.getElementById('viewText').innerText = mode === 'detailed' ? 'Detallada' : 'Compacta';
+            document.getElementById('viewText').innerText = mode === 'detailed' ? 'Tabla Detallada' : 'Tabla Compacta';
             document.getElementById('viewDropdown').classList.add('hidden'); renderUI();
         };
 
@@ -350,7 +430,7 @@
             document.getElementById('increment').value = '1';
             document.getElementById('saveName').value = '';
             calculateGrades();
-            window.showToast("Valores restaurados", "rotate-ccw");
+            window.showToast("Valores restaurados por defecto", "rotate-ccw");
         };
 
         window.copyLink = () => {
@@ -361,26 +441,26 @@
             if(url.startsWith('file://') || url.includes('null')) url = `https://mis-escalas-notas.com/?${params.toString()}`;
             const temp = document.createElement('input'); temp.value = url;
             document.body.appendChild(temp); temp.select(); document.execCommand('copy'); temp.remove();
-            window.showToast("Enlace de esta escala copiado", "link");
+            window.showToast("Enlace de esta escala copiado al portapapeles", "link");
         };
 
         window.exportCSV = () => {
             const data = window.escalaState.rows; if(!data.length) return;
             let csv = window.escalaState.viewMode === 'detailed' 
-                ? "Puntaje;Nota;Porcentaje;Porcentaje Exacto\n" + data.map(r => `${r.pStr};${r.gStr};${r.pctR}%;${r.pctE}%\n`).join('')
+                ? "Puntaje;Nota;Porcentaje de Logro;Porcentaje Exacto\n" + data.map(r => `${r.pStr};${r.gStr};${r.pctR}%;${r.pctE}%\n`).join('')
                 : "Puntaje;Nota\n" + data.map(r => `${r.pStr};${r.gStr}\n`).join('');
             const url = URL.createObjectURL(new Blob(["\ufeff", csv], { type: 'text/csv;charset=utf-8;' }));
             const a = document.createElement("a"); a.href = url;
-            a.download = (document.getElementById('saveName').value || 'Escala_Notas') + '.csv';
-            a.click(); URL.revokeObjectURL(url); window.showToast("Excel descargado", "download", "emerald");
+            a.download = (document.getElementById('saveName').value || 'Escala_Calificaciones') + '.csv';
+            a.click(); URL.revokeObjectURL(url); window.showToast("Documento Excel (CSV) descargado", "download", "emerald");
         };
 
         window.exportPDF = () => {
-            if(!window.html2pdf) return window.showToast("Cargando motor PDF...", "loader", "blue");
+            if(!window.html2pdf) return window.showToast("Iniciando motor de PDF...", "loader", "blue");
             const data = window.escalaState.rows; if(!data.length) return;
             const btn = document.getElementById('btnPdf'); const text = document.getElementById('pdfText');
-            btn.disabled = true; text.innerText = 'Procesando...';
-            const name = document.getElementById('saveName').value || 'Escala de Notas';
+            btn.disabled = true; text.innerText = 'Creando PDF...';
+            const name = document.getElementById('saveName').value || 'Escala de Notas Docente';
             
             let html = `<div style="padding:20px; font-family:sans-serif; color:#0f172a; background:white;">
                 <h1 style="font-size:22px; font-weight:bold; margin-bottom:16px; text-align:center;">${name}</h1>
@@ -392,7 +472,7 @@
 
             if (window.escalaState.viewMode === 'detailed') {
                 html += `<table style="width:100%; border-collapse:collapse; font-size:12px; text-align:left;">
-                    <tr style="background:#f8fafc; border-bottom:2px solid #cbd5e1;"><th style="padding:8px;">Pts</th><th style="padding:8px;">Nota</th><th style="padding:8px;">Logro</th></tr>
+                    <tr style="background:#f8fafc; border-bottom:2px solid #cbd5e1;"><th style="padding:8px;">Puntos</th><th style="padding:8px;">Nota</th><th style="padding:8px;">Logro</th></tr>
                     ${data.map((r,i) => `<tr style="background:${i%2===0?'#fff':'#f8fafc'}; border-bottom:1px solid #e2e8f0;">
                         <td style="padding:8px; font-weight:500;">${r.pStr}</td>
                         <td style="padding:8px; font-weight:bold; color:${r.isPass?'#0f172a':'#dc2626'};">${r.gStr}</td>
@@ -416,13 +496,13 @@
                 html += `</tbody></table>`;
             }
             html += `</div>`;
-            html2pdf().set({ margin: 10, filename: name+'.pdf', jsPDF: { format: 'a4' } }).from(html).save().then(() => {
-                btn.disabled = false; text.innerText = 'PDF'; window.showToast("PDF descargado correctamente", "check", "emerald");
+            html2pdf().set({ margin: 10, filename: name.replace(/ /g, "_")+'.pdf', jsPDF: { format: 'a4' } }).from(html).save().then(() => {
+                btn.disabled = false; text.innerText = 'PDF'; window.showToast("Documento PDF generado exitosamente", "check", "emerald");
             });
         };
 
-        window.triggerSave = () => window.showToast("Conectando con servidor...", "loader", "blue");
-        window.triggerGoogleLogin = () => window.showToast("Iniciando servicios de Google...", "loader", "blue");
+        window.triggerSave = () => window.showToast("Conectando con la base de datos...", "loader", "blue");
+        window.triggerGoogleLogin = () => window.showToast("Iniciando conexión segura...", "loader", "blue");
         window.triggerLogout = () => {};
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -438,11 +518,9 @@
          ========================================== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
         import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, deleteDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // TUS LLAVES FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyD7YzBE3MLZgUFCr4r_BSatfFAZKV_LJz4",
             authDomain: "escala-de-notas-3acdd.firebaseapp.com",
@@ -455,7 +533,6 @@
 
         try {
             const app = initializeApp(firebaseConfig);
-            const analytics = getAnalytics(app);
             const auth = getAuth(app); 
             const db = getFirestore(app);
 
@@ -472,7 +549,7 @@
                     if (!user.isAnonymous) {
                         document.getElementById('btnLogin').classList.add('hidden');
                         document.getElementById('userProfile').classList.remove('hidden'); document.getElementById('userProfile').classList.add('flex');
-                        document.getElementById('userName').innerText = user.displayName || 'Docente';
+                        document.getElementById('userName').innerText = user.displayName || 'Profesor';
                         document.getElementById('userAvatar').src = user.photoURL || '';
                     } else {
                         document.getElementById('btnLogin').classList.remove('hidden');
@@ -482,23 +559,23 @@
                     const colRef = collection(db, 'artifacts', 'escala-web', 'users', user.uid, 'escalas');
                     onSnapshot(colRef, (snap) => {
                         const list = document.getElementById('savedList');
-                        if (snap.empty) return list.innerHTML = `<li class="text-slate-500 italic text-xs text-center py-4">Aún no hay escalas en la nube.</li>`;
+                        if (snap.empty) return list.innerHTML = `<li class="text-slate-500 italic text-xs text-center py-4">Inicia sesión y guarda tus escalas aquí para no perderlas.</li>`;
                         
                         list.innerHTML = '';
                         snap.forEach(docSnap => {
                             const k = docSnap.id; const data = docSnap.data();
                             const li = document.createElement('li'); li.className = "flex justify-between items-center bg-slate-50 p-2 rounded border border-slate-100 group transition-colors hover:border-blue-100";
-                            li.innerHTML = `<button class="text-slate-700 font-medium text-left truncate flex-grow text-sm p-1 outline-none">${k}</button>
-                                            <button class="text-red-400 hover:text-red-600 p-2 outline-none transition-colors"><i data-lucide="trash-2" class="w-4 h-4"></i></button>`;
+                            li.innerHTML = `<button class="text-slate-700 font-medium text-left truncate flex-grow text-sm p-1 outline-none" title="Cargar ${k}">${k}</button>
+                                            <button class="text-red-400 hover:text-red-600 p-2 outline-none transition-colors" aria-label="Eliminar escala"><i data-lucide="trash-2" class="w-4 h-4"></i></button>`;
                             li.children[0].onclick = () => {
                                 window.escalaState.inputs.forEach(id => { if(data[id]) document.getElementById(id).value = data[id]; });
                                 document.getElementById('saveName').value = k; window.changeView(data.viewMode || 'detailed');
                                 document.getElementById('maxPoints').dispatchEvent(new Event('input'));
-                                window.showToast(`Cargada: ${k}`, "cloud-download", "blue");
+                                window.showToast(`Escala "${k}" cargada desde la nube`, "cloud-download", "blue");
                             };
                             li.children[1].onclick = () => {
                                 deleteDoc(doc(db, 'artifacts', 'escala-web', 'users', user.uid, 'escalas', k));
-                                window.showToast("Eliminada", "trash", "red");
+                                window.showToast("Escala eliminada", "trash", "red");
                             }
                             list.appendChild(li);
                         });
@@ -508,21 +585,21 @@
             });
 
             window.triggerGoogleLogin = async () => {
-                try { await signInWithPopup(auth, new GoogleAuthProvider()); window.showToast("Conectado a la Nube", "check", "emerald"); } 
-                catch(e) { window.showToast("Autoriza tu página en Firebase para habilitar el Login.", "alert-triangle", "red"); }
+                try { await signInWithPopup(auth, new GoogleAuthProvider()); window.showToast("Conexión exitosa con tu cuenta de Google", "check", "emerald"); } 
+                catch(e) { window.showToast("Ocurrió un error. Verifica que el dominio esté autorizado en Firebase.", "alert-triangle", "red"); }
             };
 
-            window.triggerLogout = async () => { await signOut(auth); await signInAnonymously(auth); window.showToast("Sesión cerrada", "info", "blue"); };
+            window.triggerLogout = async () => { await signOut(auth); await signInAnonymously(auth); window.showToast("Has cerrado sesión de forma segura", "info", "blue"); };
 
             window.triggerSave = async () => {
                 const name = document.getElementById('saveName').value.trim();
-                if(!name) return window.showToast("Ponle un nombre a tu escala primero", "alert-circle", "red");
+                if(!name) return window.showToast("Por favor, ingresa un nombre para guardar la escala", "alert-circle", "red");
                 let obj = { viewMode: window.escalaState.viewMode, timestamp: new Date().toISOString() }; 
                 window.escalaState.inputs.forEach(id => obj[id] = document.getElementById(id).value);
                 try {
                     await setDoc(doc(db, 'artifacts', 'escala-web', 'users', auth.currentUser.uid, 'escalas', name), obj);
-                    window.showToast("Guardado en la nube de Google", "cloud-check", "emerald");
-                } catch(e) { window.showToast("Fallo de red", "alert-circle", "red"); }
+                    window.showToast("Escala respaldada correctamente en la nube", "cloud-check", "emerald");
+                } catch(e) { window.showToast("Error de sincronización. Revisa tu conexión a internet.", "alert-circle", "red"); }
             };
         } catch (e) {}
     </script>
