@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Escala de Notas Pro</title>
+    <title>Calculadora de Escala de Notas Pro para Docentes</title>
     
-    <!-- Código de Google AdSense (Oculto para verificación) -->
+    <!-- Meta tags vitales para SEO -->
+    <meta name="description" content="Genera, guarda en la nube y exporta escalas de notas personalizadas para profesores en segundos. PDF, CSV y curvas de evaluación Mineduc.">
+    <meta name="keywords" content="escala de notas, calculadora profesor, mineduc, evaluación docente, notas chile, exportar pdf notas">
+    <meta name="author" content="Escala de Notas Pro">
+    
+    <!-- Código Oficial de Google AdSense -->
     <meta name="google-adsense-account" content="ca-pub-1422523085246086">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1422523085246086" crossorigin="anonymous"></script>
 
     <!-- Librerías Externas -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -40,13 +46,13 @@
     <div class="max-w-6xl mx-auto px-4 py-6">
         
         <!-- ENCABEZADO Y AUTENTICACIÓN -->
-        <header class="relative mb-6 no-print flex flex-col sm:flex-row items-center justify-between bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+        <header class="relative mb-8 no-print flex flex-col sm:flex-row items-center justify-between bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
             <div class="flex flex-col items-center sm:items-start flex-1 w-full">
                 <div class="inline-flex items-center gap-3 mb-1">
                     <h1 class="text-3xl font-extrabold text-slate-800 tracking-tight">Escala de Notas</h1>
                     <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide shadow-sm">Pro</span>
                 </div>
-                <p class="text-slate-500 text-sm text-center sm:text-left">Cálculos precisos y exportación inteligente.</p>
+                <p class="text-slate-500 text-sm text-center sm:text-left">Cálculos precisos, exportación inteligente y sincronización en la nube.</p>
             </div>
             
             <div class="mt-4 sm:mt-0 flex-shrink-0" id="authContainer">
@@ -67,44 +73,51 @@
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <!-- PANEL LATERAL (Configuración) -->
             <aside class="lg:col-span-1 space-y-6 no-print">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <h2 class="text-lg font-bold mb-4 flex items-center gap-2 text-slate-800">
-                        <i data-lucide="settings" class="w-5 h-5 text-blue-600"></i> Parámetros
-                    </h2>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-bold flex items-center gap-2 text-slate-800">
+                            <i data-lucide="settings" class="w-5 h-5 text-blue-600"></i> Parámetros
+                        </h2>
+                        <!-- Botón para limpiar calculadora -->
+                        <button onclick="window.resetCalculator()" class="text-slate-400 hover:text-blue-600 transition-colors" title="Restaurar valores">
+                            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Puntaje Máximo</label>
-                            <input type="number" id="maxPoints" value="40" min="1" step="0.5" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                            <input type="text" inputmode="decimal" id="maxPoints" value="40" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Exigencia (%)</label>
-                            <input type="number" id="exigency" value="60" min="1" max="99" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                            <input type="text" inputmode="decimal" id="exigency" value="60" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Nota Mín</label>
-                                <input type="number" id="minGrade" value="1.0" step="0.1" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                                <input type="text" inputmode="decimal" id="minGrade" value="1.0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Nota Máx</label>
-                                <input type="number" id="maxGrade" value="7.0" step="0.1" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                                <input type="text" inputmode="decimal" id="maxGrade" value="7.0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Nota de Aprobación</label>
-                            <input type="number" id="passGrade" value="4.0" step="0.1" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                            <input type="text" inputmode="decimal" id="passGrade" value="4.0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
                         </div>
                         <div class="pt-2 border-t border-slate-100">
                             <label class="block text-sm font-medium text-slate-700 mb-1">Curva Matemática</label>
-                            <select id="curve" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 text-sm">
+                            <select id="curve" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 text-sm hover:bg-white transition-colors cursor-pointer">
                                 <option value="linear2">Lineal 2 Tramos (MINEDUC)</option>
                                 <option value="linear1">Lineal 1 Tramo</option>
                                 <option value="log">Logarítmica</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Incremento</label>
-                            <select id="increment" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 text-sm">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Incremento de puntos</label>
+                            <select id="increment" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 text-sm hover:bg-white transition-colors cursor-pointer">
                                 <option value="1">Cada 1.0 puntos</option>
                                 <option value="0.5">Cada 0.5 puntos</option>
                                 <option value="0.25">Cada 0.25 puntos</option>
@@ -120,7 +133,7 @@
                     <h2 class="text-lg font-bold mb-4 flex items-center gap-2 text-slate-800">
                         <i data-lucide="cloud" class="w-5 h-5 text-emerald-600"></i> Mis Escalas
                     </h2>
-                    <ul id="savedList" class="space-y-2 text-sm max-h-[300px] overflow-y-auto pr-1">
+                    <ul id="savedList" class="space-y-2 text-sm max-h-[300px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-slate-200">
                         <li class="text-slate-500 italic text-xs text-center py-4">Inicia sesión para cargar escalas...</li>
                     </ul>
                 </div>
@@ -128,46 +141,46 @@
 
             <!-- AREA PRINCIPAL (Resultados) -->
             <main class="lg:col-span-3">
-                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-6 flex flex-col md:flex-row gap-4 items-center justify-between no-print">
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-6 flex flex-col md:flex-row gap-4 items-center justify-between no-print hover:shadow-md transition-shadow">
                     <div class="flex items-center gap-2 text-blue-800 bg-blue-50 px-4 py-2 rounded-xl border border-blue-100 w-full md:w-auto">
                         <i data-lucide="info" class="w-5 h-5 flex-shrink-0"></i>
                         <span id="summaryText" class="text-sm font-medium">Calculando...</span>
                     </div>
                     
                     <div class="flex flex-wrap gap-2 w-full md:w-auto">
-                        <button onclick="window.copyLink()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-sm font-medium focus:ring-2 focus:ring-slate-200">
+                        <button onclick="window.copyLink()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-sm font-medium focus:ring-2 focus:ring-slate-200 transition-colors shadow-sm">
                             <i data-lucide="link" class="w-4 h-4"></i> Link
                         </button>
-                        <button onclick="window.exportCSV()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-emerald-500">
+                        <button onclick="window.exportCSV()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-emerald-500 transition-colors">
                             <i data-lucide="file-spreadsheet" class="w-4 h-4"></i> CSV
                         </button>
-                        <button id="btnPdf" onclick="window.exportPDF()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-blue-500">
+                        <button id="btnPdf" onclick="window.exportPDF()" class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-blue-500 transition-colors disabled:opacity-70">
                             <i data-lucide="file-down" class="w-4 h-4" id="pdfIcon"></i> <span id="pdfText">PDF</span>
                         </button>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">
                     <div class="p-4 sm:p-6 border-b border-slate-100 flex flex-col lg:flex-row lg:justify-between lg:items-center bg-slate-50/50 gap-4">
                         <div class="flex items-center gap-2 w-full lg:w-1/2">
                             <input type="text" id="saveName" placeholder="Nombra esta evaluación..." class="text-xl sm:text-2xl font-bold text-slate-800 bg-transparent border-b-2 border-transparent hover:border-slate-200 focus:border-blue-500 focus:outline-none transition-colors px-1 py-1 w-full placeholder:text-slate-300 truncate">
-                            <button onclick="window.triggerSave()" class="text-emerald-600 hover:bg-emerald-100 bg-emerald-50 p-2.5 rounded-xl transition-colors flex-shrink-0 border border-emerald-200" title="Guardar en la nube">
+                            <button onclick="window.triggerSave()" class="text-emerald-600 hover:bg-emerald-100 bg-emerald-50 p-2.5 rounded-xl transition-colors flex-shrink-0 border border-emerald-200 outline-none focus:ring-2 focus:ring-emerald-500" title="Guardar en la nube">
                                 <i data-lucide="cloud-upload" class="w-5 h-5"></i>
                             </button>
                         </div>
                         <div class="flex items-center gap-3 self-start lg:self-auto">
                             <!-- Dropdown de Vista -->
                             <div class="relative" id="viewModeContainer">
-                                <button onclick="document.getElementById('viewDropdown').classList.toggle('hidden')" class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-slate-200">
+                                <button onclick="document.getElementById('viewDropdown').classList.toggle('hidden')" class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-slate-200 outline-none transition-colors">
                                     <i data-lucide="eye" class="w-4 h-4 text-blue-600"></i>
                                     <span id="viewText">Detallada</span>
                                     <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
                                 </button>
                                 <div id="viewDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden z-20">
-                                    <button onclick="window.changeView('detailed')" class="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 border-b border-slate-50">
+                                    <button onclick="window.changeView('detailed')" class="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 border-b border-slate-50 transition-colors">
                                         <i data-lucide="layout-list" class="w-4 h-4 inline mr-2 text-slate-400"></i> Detallada
                                     </button>
-                                    <button onclick="window.changeView('compact')" class="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700">
+                                    <button onclick="window.changeView('compact')" class="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
                                         <i data-lucide="grid-3x3" class="w-4 h-4 inline mr-2 text-slate-400"></i> Compacta
                                     </button>
                                 </div>
@@ -176,10 +189,50 @@
                         </div>
                     </div>
                     <!-- Contenedor Principal de la Tabla -->
-                    <div id="resultsContainer" class="overflow-x-auto max-h-[70vh] overflow-y-auto bg-white overscroll-contain"></div>
+                    <div id="resultsContainer" class="overflow-x-auto max-h-[70vh] overflow-y-auto bg-white overscroll-contain scrollbar-thin scrollbar-thumb-slate-200"></div>
                 </div>
             </main>
         </div>
+
+        <!-- ========================================================
+             SECCIÓN INFORMATIVA Y LEGAL (VITAL PARA APROBAR ADSENSE) 
+             ======================================================== -->
+        <div class="mt-12 bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 no-print text-slate-600">
+            <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                <i data-lucide="info" class="w-5 h-5 text-blue-600"></i>
+                Sobre Escala de Notas Pro
+            </h2>
+            <div class="space-y-4 text-sm leading-relaxed">
+                <p>
+                    La <strong>Calculadora de Escala de Notas Pro</strong> es una herramienta digital gratuita diseñada para optimizar el tiempo de los docentes chilenos e internacionales. Permite generar escalas de calificaciones precisas al instante, facilitando la conversión de puntajes a notas según las normativas vigentes (MINEDUC).
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <h3 class="font-bold text-slate-700 mb-2">📊 Precisión Total</h3>
+                        <p class="text-xs">Ajusta el puntaje máximo, la exigencia (ej. 60%) y los incrementos decimales. Soporta curvas de evaluación de 1 o 2 tramos y formato logarítmico.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <h3 class="font-bold text-slate-700 mb-2">☁️ Guardado en la Nube</h3>
+                        <p class="text-xs">Inicia sesión con tu cuenta de Google para guardar tus configuraciones favoritas de forma privada y acceder a ellas desde cualquier dispositivo.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <h3 class="font-bold text-slate-700 mb-2">📥 Exportación Fácil</h3>
+                        <p class="text-xs">Descarga tus escalas en formato PDF listo para imprimir o en archivo CSV (Excel) para integrarlo rápidamente en tu libro de clases digital.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-8 mb-4 text-center text-xs text-slate-400 no-print">
+            <div class="flex flex-wrap justify-center gap-4 mb-2">
+                <a href="#" class="hover:text-blue-600 transition-colors">Política de Privacidad</a>
+                <span>&bull;</span>
+                <a href="#" class="hover:text-blue-600 transition-colors">Términos de Servicio</a>
+            </div>
+            <p>&copy; 2026 Escala de Notas Pro. Una herramienta de apoyo docente. Todos los derechos reservados.</p>
+        </footer>
+        <!-- ======================================================== -->
+
     </div>
 
     <!-- Toasts UI -->
@@ -220,7 +273,9 @@
             document.getElementById('curveBadge').innerText = document.getElementById('curve').options[document.getElementById('curve').selectedIndex].text;
 
             let data = [];
-            if ((maxPts / inc) > 5000) { window.showToast("Escala muy grande", "alert-circle", "red"); return; }
+            
+            // LÍMITE AUMENTADO A 20,000 FILAS PARA ESCALAS GIGANTES
+            if ((maxPts / inc) > 20000) { window.showToast("Escala demasiado grande (Máx 20.000 filas). Aumenta el incremento.", "alert-circle", "red"); return; }
 
             for (let p = maxPts; p >= 0; p -= inc) {
                 p = Math.round(p * 100) / 100;
@@ -269,7 +324,7 @@
                 container.innerHTML = `
                     <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-x-6 p-6 text-sm">
                         ${data.map(r => `
-                        <div class="break-inside-avoid flex justify-between py-1.5 px-3 border-b border-slate-200 even:bg-slate-100 rounded-sm">
+                        <div class="break-inside-avoid flex justify-between py-1.5 px-3 border-b border-slate-200 even:bg-slate-100 rounded-sm hover:bg-blue-50 transition-colors">
                             <span class="font-medium text-slate-600">${r.pStr}</span>
                             <span class="font-bold ${r.color}">${r.gStr}</span>
                         </div>`).join('')}
@@ -285,6 +340,19 @@
             document.getElementById('viewDropdown').classList.add('hidden'); renderUI();
         };
 
+        window.resetCalculator = () => {
+            document.getElementById('maxPoints').value = 40;
+            document.getElementById('exigency').value = 60;
+            document.getElementById('minGrade').value = 1.0;
+            document.getElementById('maxGrade').value = 7.0;
+            document.getElementById('passGrade').value = 4.0;
+            document.getElementById('curve').value = 'linear2';
+            document.getElementById('increment').value = '1';
+            document.getElementById('saveName').value = '';
+            calculateGrades();
+            window.showToast("Valores restaurados", "rotate-ccw");
+        };
+
         window.copyLink = () => {
             const params = new URLSearchParams();
             window.escalaState.inputs.forEach(id => params.set(id, document.getElementById(id).value));
@@ -293,7 +361,7 @@
             if(url.startsWith('file://') || url.includes('null')) url = `https://mis-escalas-notas.com/?${params.toString()}`;
             const temp = document.createElement('input'); temp.value = url;
             document.body.appendChild(temp); temp.select(); document.execCommand('copy'); temp.remove();
-            window.showToast("Enlace copiado", "link");
+            window.showToast("Enlace de esta escala copiado", "link");
         };
 
         window.exportCSV = () => {
@@ -303,12 +371,12 @@
                 : "Puntaje;Nota\n" + data.map(r => `${r.pStr};${r.gStr}\n`).join('');
             const url = URL.createObjectURL(new Blob(["\ufeff", csv], { type: 'text/csv;charset=utf-8;' }));
             const a = document.createElement("a"); a.href = url;
-            a.download = (document.getElementById('saveName').value || 'Escala') + '.csv';
-            a.click(); URL.revokeObjectURL(url); window.showToast("Excel exportado", "download", "emerald");
+            a.download = (document.getElementById('saveName').value || 'Escala_Notas') + '.csv';
+            a.click(); URL.revokeObjectURL(url); window.showToast("Excel descargado", "download", "emerald");
         };
 
         window.exportPDF = () => {
-            if(!window.html2pdf) return window.showToast("La librería PDF aún está cargando", "loader", "blue");
+            if(!window.html2pdf) return window.showToast("Cargando motor PDF...", "loader", "blue");
             const data = window.escalaState.rows; if(!data.length) return;
             const btn = document.getElementById('btnPdf'); const text = document.getElementById('pdfText');
             btn.disabled = true; text.innerText = 'Procesando...';
@@ -319,6 +387,7 @@
                 <div style="display:flex; justify-content:space-between; border-bottom:2px solid #1e293b; padding-bottom:12px; margin-bottom:20px; font-size:13px; font-weight:bold;">
                     <span>Max: ${document.getElementById('maxPoints').value} pts</span>
                     <span>Exigencia: ${document.getElementById('exigency').value}%</span>
+                    <span>Aprobación: ${document.getElementById('passGrade').value}</span>
                 </div>`;
 
             if (window.escalaState.viewMode === 'detailed') {
@@ -348,12 +417,12 @@
             }
             html += `</div>`;
             html2pdf().set({ margin: 10, filename: name+'.pdf', jsPDF: { format: 'a4' } }).from(html).save().then(() => {
-                btn.disabled = false; text.innerText = 'PDF'; window.showToast("PDF descargado", "check", "emerald");
+                btn.disabled = false; text.innerText = 'PDF'; window.showToast("PDF descargado correctamente", "check", "emerald");
             });
         };
 
-        window.triggerSave = () => window.showToast("Conectando a la nube...", "loader", "blue");
-        window.triggerGoogleLogin = () => window.showToast("Cargando servicios de Google...", "loader", "blue");
+        window.triggerSave = () => window.showToast("Conectando con servidor...", "loader", "blue");
+        window.triggerGoogleLogin = () => window.showToast("Iniciando servicios de Google...", "loader", "blue");
         window.triggerLogout = () => {};
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -366,7 +435,6 @@
 
     <!-- ==========================================
          SCRIPT 2: MOTOR DE LA NUBE (FIREBASE)
-         Tus llaves exactas están aquí integradas.
          ========================================== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -374,6 +442,7 @@
         import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, deleteDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // TUS LLAVES FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyD7YzBE3MLZgUFCr4r_BSatfFAZKV_LJz4",
             authDomain: "escala-de-notas-3acdd.firebaseapp.com",
@@ -418,15 +487,19 @@
                         list.innerHTML = '';
                         snap.forEach(docSnap => {
                             const k = docSnap.id; const data = docSnap.data();
-                            const li = document.createElement('li'); li.className = "flex justify-between items-center bg-slate-50 p-2 rounded border border-slate-100 group";
-                            li.innerHTML = `<button class="text-slate-700 font-medium text-left truncate flex-grow text-sm">${k}</button>
-                                            <button class="text-red-400 hover:text-red-600 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>`;
+                            const li = document.createElement('li'); li.className = "flex justify-between items-center bg-slate-50 p-2 rounded border border-slate-100 group transition-colors hover:border-blue-100";
+                            li.innerHTML = `<button class="text-slate-700 font-medium text-left truncate flex-grow text-sm p-1 outline-none">${k}</button>
+                                            <button class="text-red-400 hover:text-red-600 p-2 outline-none transition-colors"><i data-lucide="trash-2" class="w-4 h-4"></i></button>`;
                             li.children[0].onclick = () => {
                                 window.escalaState.inputs.forEach(id => { if(data[id]) document.getElementById(id).value = data[id]; });
                                 document.getElementById('saveName').value = k; window.changeView(data.viewMode || 'detailed');
                                 document.getElementById('maxPoints').dispatchEvent(new Event('input'));
+                                window.showToast(`Cargada: ${k}`, "cloud-download", "blue");
                             };
-                            li.children[1].onclick = () => deleteDoc(doc(db, 'artifacts', 'escala-web', 'users', user.uid, 'escalas', k));
+                            li.children[1].onclick = () => {
+                                deleteDoc(doc(db, 'artifacts', 'escala-web', 'users', user.uid, 'escalas', k));
+                                window.showToast("Eliminada", "trash", "red");
+                            }
                             list.appendChild(li);
                         });
                         if(window.lucide) window.lucide.createIcons();
@@ -436,24 +509,22 @@
 
             window.triggerGoogleLogin = async () => {
                 try { await signInWithPopup(auth, new GoogleAuthProvider()); window.showToast("Conectado a la Nube", "check", "emerald"); } 
-                catch(e) { window.showToast("No se pudo iniciar sesión. Asegúrate de autorizar tu dominio en Firebase.", "alert-triangle", "red"); }
+                catch(e) { window.showToast("Autoriza tu página en Firebase para habilitar el Login.", "alert-triangle", "red"); }
             };
 
             window.triggerLogout = async () => { await signOut(auth); await signInAnonymously(auth); window.showToast("Sesión cerrada", "info", "blue"); };
 
             window.triggerSave = async () => {
                 const name = document.getElementById('saveName').value.trim();
-                if(!name) return window.showToast("Ponle un nombre primero", "alert-circle", "red");
+                if(!name) return window.showToast("Ponle un nombre a tu escala primero", "alert-circle", "red");
                 let obj = { viewMode: window.escalaState.viewMode, timestamp: new Date().toISOString() }; 
                 window.escalaState.inputs.forEach(id => obj[id] = document.getElementById(id).value);
                 try {
                     await setDoc(doc(db, 'artifacts', 'escala-web', 'users', auth.currentUser.uid, 'escalas', name), obj);
-                    window.showToast("Sincronizado en la nube", "cloud-check", "emerald");
+                    window.showToast("Guardado en la nube de Google", "cloud-check", "emerald");
                 } catch(e) { window.showToast("Fallo de red", "alert-circle", "red"); }
             };
-        } catch (e) {
-            console.error("Error Firebase", e);
-        }
+        } catch (e) {}
     </script>
 </body>
 </html>
